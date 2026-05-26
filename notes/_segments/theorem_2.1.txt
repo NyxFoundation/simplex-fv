@@ -1,0 +1,9 @@
+### Statement (line 440)
+Theorem 2.1 (Partially-synchronous Consensus). Assuming collision-resistant hash functions,
+digital signatures, a PRF, a bare PKI, and a CRS, there is a partially-synchronous blockchain
+protocol for f < n/3 static corruptions that has O(n) multicast complexity, optimistic confirmation
+time of 5δ, worst-case confirmation time of 4δ+ω(log λ)·(3∆+δ), and expected view-based liveness
+of 3.5δ + 1.5∆.
+
+### Proof (line 0)
+(no proof at this location; Theorem 2.1 is the paper's summary statement, established by Theorems 3.1-3.4 in Sec. 3)

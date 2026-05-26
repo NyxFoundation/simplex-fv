@@ -1,0 +1,25 @@
+### Statement (line 602)
+Lemma 3.2. Let h ∈N. Let bh and b′
+h be two distinct blocks s.t. neither are equal to the dummy
+block ⊥h. It cannot be that both bh and b′
+h are both notarized in honest view (except with negligible
+probability in λ).
+
+### Proof (line 607)
+Proof. Consider a random execution and let bh and b′
+h be any two blocks of height h in the execution
+transcript, s.t. bh ̸= b′
+h and moreover bh ̸= ⊥h and b′
+h ̸= ⊥h. We call a tuple (i, m) “good” if
+m ∈{(vote, h, bh), (vote, h, b′
+h)} and there exists a valid signature ⟨m⟩i in the view of some honest
+player. By the construction of the protocol, each honest process signs at most one of (vote, h, bh)
+and (vote, h, b′
+h). On the other hand, each corrupted player can sign both messages. Applying
+Lemma 3.1, then there are at most (n−f)+f ·2 = n+f < 4n/3 good tuples with all but negligible
+probability in the security parameter. Now assume for the sake of contradiction that there are both
+notarizations for bh and b′
+h in honest view. Then there are ≥2n/3 signatures for ⟨vote, h, bh⟩and
+likewise ≥2n/3 signatures for ⟨vote, h, b′
+h⟩in honest view; thus there are ≥4n/3 good tuples in
+honest view, which is a contradiction.

@@ -1,0 +1,7 @@
+### Statement (line 853)
+Lemma 3.7. In each iteration h, each honest process will multicast at most 4 messages.
+
+### Proof (line 854)
+Proof. For each iteration h ∈N, an honest process p will multicast at most one propose message, at
+most one vote message for a non-⊥block, at most one of ⟨vote, h, ⊥h⟩p and ⟨finalize, h⟩p, and will
+relay their view of a notarized blockchain of height h at most once.

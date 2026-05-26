@@ -1,0 +1,18 @@
+### Statement (line 833)
+Theorem 3.4 (Expected View-Based Liveness). Simplex has expected 3.5δ + 1.5∆view-based live-
+ness.
+
+### Proof (line 835)
+Proof. Fix any iteration h ∈N. Suppose that there is a set of transactions txs in the view of every
+honest player before they enter iteration h, and moreover suppose that every honest player entered
+iteration h by some time t > GST. Recall that for each iteration i, we defined the leader to be Li :=
+H∗(i) mod n, where H∗is a random oracle (chosen independently of GST and h). Immediately,
+for each i ∈N, Li must be an honest player with independent probability (n −f)/n ≥2/3. Denote
+X the number s.t. Lh+X is honest but, when X > 0, Li is faulty ∀i where h ≤i < h + X. Here
+X is a random variable, and immediately E[X] ≤3/2 −1 = 1/2. Observe that, importantly, Lh+X
+will propose a blockchain that contains txs.
+It remains to upper bound the time at which some honest process enters iteration h + X. By
+Lemma 3.6, every honest process will have entered iteration h+X by time t+X ·(3∆+δ). Applying
+Lemma 3.5, we conclude that every honest process will see a finalized block proposed by Lh+X by
+time t + 3δ + (X) · (3∆+ δ). Moreover, this block contains txs if not already in a previous block.
+Taking the expectation of the time elapsed since t, the theorem statement follows.

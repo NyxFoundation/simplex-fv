@@ -1,0 +1,13 @@
+### Statement (line 626)
+Lemma 3.3. If there is a finalization for height h in honest view, ⊥h cannot be notarized in honest
+view (except with negligible probability in λ).
+
+### Proof (line 628)
+Proof. We call a tuple (i, m) “good” if m ∈{(finalize, h), (vote, h, ⊥h)} and there exists a valid
+signature ⟨m⟩i in the view of some honest player. By the construction of the protocol, each honest
+process signs at most one of ⟨finalize, h⟩or ⟨vote, h, ⊥h⟩, whereas each corrupted player can sign
+either message. Applying Lemma 3.1, there are thus at most (n −f) + f · 2 = n + f < 4n/3 good
+tuples (with all but negligible probability in λ). But now assume for the sake of contradiction
+that bh is finalized and ⊥h is also notarized. Since bh is finalized, there are ≥2n/3 signatures
+for ⟨finalize, h⟩in honest view, and likewise since ⊥h is notarized, there are ≥2n/3 signatures for
+⟨vote, h, ⊥h⟩in honest view; thus there are ≥4n/3 good tuples, which is a contradiction.

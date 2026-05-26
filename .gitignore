@@ -1,0 +1,8 @@
+# Source paper PDF — copyrighted, referenced via ePrint link instead
+2023-463.pdf
+
+# OS / editor cruft
+.DS_Store
+*.swp
+.idea/
+.vscode/
