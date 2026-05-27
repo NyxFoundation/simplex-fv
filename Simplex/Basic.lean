@@ -5,6 +5,12 @@ namespace Simplex
 /-- A validator/process; there are `n` of them. -/
 abbrev Process (n : Nat) := Fin n
 
+/-- The notarization/finalization quorum threshold `⌈2n/3⌉`, written in `Nat` as
+    `(2*n+2)/3`. Parameterized by `n` only — the safety argument never assumes
+    `n = 3f+1`; it uses `3*f < n` and this `⌈2n/3⌉` threshold, handling the
+    integer rounding explicitly (cf. `docs/formalization-strategy.md`, Barrier 3). -/
+def quorumThreshold (n : Nat) : Nat := (2 * n + 2) / 3
+
 /-- Abstract message space (votes, finalize, propose). Refined in later issues. -/
 opaque Message : Type
 
