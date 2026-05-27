@@ -1,6 +1,6 @@
 ---
 title: Simplex Lean 4 Formalization Strategy
-last_updated: 2026-05-26
+last_updated: 2026-05-27
 tags:
   - lean4
   - formal-verification
@@ -139,21 +139,22 @@ parameters and the message-delivery / timer rules as abstract hypotheses
 (`δ`-bounded delivery after `GST`, timer fires after `3∆`). The timing lemmas are
 then ordinary inequality reasoning, fully proved.
 
-## Track structure and dependency graph
+## Result categories and dependency graph
 
-Three layers. Track A (safety) is self-contained given the crypto axioms; Track B
-(liveness/timing) depends on the timing model and leader randomness; Track C is a
-single complexity lemma.
+Three categories, matching the GitHub labels `safety` / `liveness` / `complexity`.
+The safety line is self-contained given the crypto axioms; the liveness line
+depends on the timing model and leader randomness; complexity is a single lemma.
 
-- **Track A — consistency (safety):** Lemma 3.1–3.3, Theorem 3.1. Quorum
+- **Safety (consistency):** Lemma 3.1–3.3, Theorem 3.1. Quorum
   intersection ⇒ no two conflicting blocks notarized ⇒ prefix agreement.
-- **Track B — liveness & confirmation time:** Lemma 3.4–3.6, Theorem 3.2–3.4.
+- **Liveness & confirmation time:** Lemma 3.4–3.6, Theorem 3.2–3.4.
   Synchronized iterations + honest/faulty-leader effects ⇒ optimistic `5δ`,
   worst-case `4δ + ω(log λ)·(3∆+δ)`, expected `3.5δ + 1.5∆`.
-- **Track C — communication complexity:** Lemma 3.7 (≤ 4 multicasts per
-  iteration per honest process). Independent of A and B.
+- **Communication complexity:** Lemma 3.7 (≤ 4 multicasts per
+  iteration per honest process). Independent of the safety and liveness lines.
 - **Theorem 2.1** is the paper's summary statement; it has no separate proof and
-  closes once Tracks A–C close (it is the conjunction of their conclusions).
+  closes once the safety, liveness, and complexity statements close (it is the
+  conjunction of their conclusions).
 
 Dependency adjacency list (`X ← {…}` means X's proof depends on …; `[crypto]`
 and `[rand]` are the axioms/premises of Barriers 1 and 2):

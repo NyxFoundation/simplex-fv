@@ -66,20 +66,23 @@ Reference project layout to mirror: [`Koukyosyumei/PoL`](https://github.com/Kouk
   crypto/randomness facts as explicit premises so the theorem is fully proved as
   "premise ⇒ conclusion" with no local axiom.
 
-### Three tracks, one DAG (no cycles)
+### Safety, liveness, and complexity — one DAG (no cycles)
 
-- **Track A — safety:** Lemma 3.1–3.3, Theorem 3.1. The entire safety argument is
-  one quorum-intersection lemma applied twice. Prove quorum intersection directly
-  over `Finset` cardinalities, parameterized by `n`, `f`, `3*f < n` — **do not
-  hardcode `n = 3f+1`**; use the `⌈2n/3⌉` threshold (`(2*n+2)/3` in `Nat`) and
-  handle integer rounding explicitly.
-- **Track B — liveness/timing:** Lemma 3.4–3.6, Theorem 3.2–3.4. Timing
+The 12 statements split by the paper's three guarantees (matching the GitHub
+labels `safety` / `liveness` / `complexity`):
+
+- **Safety (consistency):** Lemma 3.1–3.3, Theorem 3.1. The entire safety argument
+  is one quorum-intersection lemma applied twice. Prove quorum intersection
+  directly over `Finset` cardinalities, parameterized by `n`, `f`, `3*f < n` —
+  **do not hardcode `n = 3f+1`**; use the `⌈2n/3⌉` threshold (`(2*n+2)/3` in `Nat`)
+  and handle integer rounding explicitly.
+- **Liveness & confirmation time:** Lemma 3.4–3.6, Theorem 3.2–3.4. Timing
   inequalities over `GST`, `δ`, `∆` (with `δ < ∆`), plus elementary independent-
   coin bounds on leader rotation — **no Chernoff machinery.**
-- **Track C — complexity:** Lemma 3.7 (≤ 4 multicasts/iteration/honest process),
-  independent of A and B.
+- **Communication complexity:** Lemma 3.7 (≤ 4 multicasts/iteration/honest
+  process), independent of the safety and liveness lines.
 - **Theorem 2.1** is the capstone summary; it closes as the conjunction of the
-  three tracks' conclusions.
+  safety, liveness, and complexity conclusions.
 
 The full adjacency list lives in `docs/formalization-strategy.md`. Statements can
 be closed in topological order.
@@ -106,7 +109,7 @@ Existing (root `Simplex.lean` imports all of these):
   leader-randomness facts. **An unguarded axiom over the abstract `Execution`
   would prove `False`** (its fields are unconstrained) — guard each crypto axiom
   by `ValidExecution`.
-- `Simplex/Safety.lean` — Track A statements; currently `lemma_3_1`.
+- `Simplex/Safety.lean` — safety (consistency) statements; currently `lemma_3_1`.
 
 Planned (not yet created):
 
@@ -118,10 +121,11 @@ Planned (not yet created):
 
 ## Conventions
 
-- **Each of the 12 statements maps to a GitHub issue**, labeled by track
-  (`track-a/b/c`), `type:lemma`/`type:theorem`, and `needs-axiom`/`phase2` where
-  relevant (issues #1–14; #13–14 are the Phase 2 axiom-discharge tasks). The
-  strategy doc is the cross-cutting reference those issues link back to.
+- **Each of the 12 statements maps to a GitHub issue**, labeled by result category
+  (`safety`/`liveness`/`complexity`), `type:lemma`/`type:theorem`, and
+  `needs-axiom`/`phase2` where relevant (issues #1–14; #13–14 are the Phase 2
+  axiom-discharge tasks). The strategy doc is the cross-cutting reference those
+  issues link back to.
 - The notes are **verbatim PyMuPDF extractions** from a two-column PDF. A known
   artifact: subscripts/superscripts and primed indices line-break at column
   boundaries (e.g. `b'_{h'}` appears as `b′` then `h′`). Read split tokens as one
