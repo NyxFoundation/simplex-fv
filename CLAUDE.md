@@ -18,12 +18,12 @@ are not yet formalized.
 
 ## Layout
 
-- `notes/paper-statements.md` — every numbered Theorem and Lemma from the paper
-  (Theorem 2.1, 3.1–3.4; Lemma 3.1–3.7 — **12 statements**, no numbered
+- The per-statement paper notes — every numbered Theorem and Lemma (Theorem 2.1,
+  3.1–3.4; Lemma 3.1–3.7 — **12 statements**, no numbered
   Definitions/Propositions/Corollaries), each with its proof and a notation
-  glossary. This is the specification target.
-- `notes/_segments/` — the same statements split one-per-file
-  (`theorem_<sec>.<idx>.txt`, `lemma_<sec>.<idx>.txt`).
+  glossary, plus a one-file-per-statement segment split — are the specification
+  target. They are **maintained separately, outside this repository**, and are no
+  longer version-controlled here.
 - `docs/formalization-strategy.md` — the authoritative design document: proof
   discipline, the five formalization barriers and the decision for each, the
   dependency DAG, and the planned Lean module layout. **Read this before writing

@@ -23,14 +23,12 @@ DISC 2024) is a related latency optimization of the same protocol and is
 
 ## Contents
 
-- `notes/paper-statements.md` — every numbered Theorem and Lemma from the paper,
-  each with its proof as it appears in §3, plus a glossary of recurring notation
-  and data structures. The paper numbers items as `<section>.<index>`
-  (Theorem 2.1, 3.1–3.4; Lemma 3.1–3.7). It defines **no** numbered Definitions,
-  Propositions, or Corollaries — the model lives in unnumbered §2 prose.
-- `notes/_segments/` — the same statements split into one file per item
-  (`theorem_*`, `lemma_*`, named by the paper's `section.index` label), each
-  containing the statement text and its proof with source line references.
+The per-statement paper notes (every numbered Theorem and Lemma — Theorem 2.1,
+3.1–3.4; Lemma 3.1–3.7 — each with its proof, a notation glossary, and
+one-file-per-item segments) are **maintained separately, outside this
+repository**, and are no longer version-controlled here. The paper defines **no**
+numbered Definitions, Propositions, or Corollaries — the model lives in unnumbered
+§2 prose.
 
 The protocol pseudocode (the §2.1 player steps), Figures 1–2, the §2.2 proof
 outline, and the §3.4 communication-complexity discussion beyond Lemma 3.7 are

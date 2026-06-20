@@ -1,6 +1,6 @@
 ---
 title: Simplex Lean 4 Formalization Strategy
-last_updated: 2026-05-27
+last_updated: 2026-06-20
 tags:
   - lean4
   - formal-verification
@@ -16,8 +16,9 @@ explicit policy decision for each. The 12 numbered statements of the paper
 (Theorem 2.1, 3.1–3.4; Lemma 3.1–3.7) are each tracked by a GitHub issue; this
 file is the cross-cutting reference those issues link back to.
 
-The statement texts and proofs live in [`notes/paper-statements.md`](../notes/paper-statements.md)
-and the per-statement segments in [`notes/_segments/`](../notes/_segments/).
+The statement texts and proofs are maintained separately, outside this
+repository (the per-statement paper notes and their one-file-per-item segments),
+and are no longer version-controlled here.
 
 Simplex is deliberately simple: a partially-synchronous BFT protocol whose
 entire safety argument is one quorum-intersection lemma applied twice, and whose
