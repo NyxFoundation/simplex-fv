@@ -7,8 +7,8 @@ set_option autoImplicit false
 
 namespace Simplex
 
-/-- **The honest-leader round scenario** for Lemma 3.5 (Barrier 4/5: protocol and
-    timing mechanics as an abstract interface). Bundles the timing model `tv`, the
+/-- **The honest-leader round scenario** for Lemma 3.5 (protocol and timing
+    mechanics as an abstract interface). Bundles the timing model `tv`, the
     chain view `cv`, the honest leader `L` of iteration `h`, the block `b` it
     proposes at height `h`, and the protocol-behaviour laws the proof needs. The
     novel timing content of the lemma (the `t+2δ` / `t+3δ` bounds and the

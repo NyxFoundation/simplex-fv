@@ -10,7 +10,7 @@ namespace Simplex
     `i` and seen in honest view exists only if `i` actually signed it. Immediate
     from the unforgeability axiom (mirrors the paper's one-line reduction).
 
-    Phase 1 scope: this is the *deterministic* consequence of the crypto axiom;
+    This is the *deterministic* consequence of the crypto axiom;
     the paper's "with overwhelming probability" and the temporal "previously" are
     abstracted into the axiom, not proved here. -/
 theorem lemma_3_1 {n : Nat} (e : Execution n) (i : Process n) (m : Message)
@@ -67,7 +67,7 @@ theorem lemma_3_2 {n f : Nat} (e : Execution n) (m m' : Message)
     (hvalid : ValidExecution e) (hf : 3 * f < n)
     (honest : Finset (Process n)) (hHonest : ∀ p, p ∈ honest ↔ e.Honest p)
     (hcorrupt : honestᶜ.card ≤ f)
-    -- Protocol rule (Barrier 4, abstract): an honest process signs at most one of
+    -- Protocol rule (abstract): an honest process signs at most one of
     -- the two distinct non-dummy votes `m`, `m'` at this height.
     (hSignAtMostOne : ∀ p, e.Honest p → e.Signed p m → e.Signed p m' → False)
     -- Both blocks notarized in honest view.
@@ -105,7 +105,7 @@ theorem lemma_3_3 {n f : Nat} (e : Execution n) (mFin mVote : Message)
     (hvalid : ValidExecution e) (hf : 3 * f < n)
     (honest : Finset (Process n)) (hHonest : ∀ p, p ∈ honest ↔ e.Honest p)
     (hcorrupt : honestᶜ.card ≤ f)
-    -- Protocol rule (Barrier 4, abstract): an honest process signs at most one of
+    -- Protocol rule (abstract): an honest process signs at most one of
     -- `⟨finalize, h⟩` and `⟨vote, h, ⊥_h⟩`.
     (hSignAtMostOne : ∀ p, e.Honest p → e.Signed p mFin → e.Signed p mVote → False)
     -- `h` finalized and `⊥_h` notarized, both in honest view.

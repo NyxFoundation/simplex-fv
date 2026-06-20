@@ -26,7 +26,7 @@ namespace Simplex
     the liveness guarantees quantify over their own honest-leader-round scenarios `R`
     and the complexity guarantee over the multicast model `mc` for the same `e`. No
     `sorry`; the axioms reached are the crypto ones (`signature_unforgeable`,
-    `collision_resistant`) and the Phase-1 leader-randomness ones
+    `collision_resistant`) and the leader-randomness ones
     (`consecutiveCorruptProb_bound`, `expectedLeaderOffset_le`). -/
 theorem theorem_2_1 {n f : Nat} (cv : ChainView n) (e : Execution n)
     (hvalid : ValidExecution e) (hf : 3 * f < n)
