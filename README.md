@@ -57,33 +57,6 @@ There is **no VRF lottery, no Chernoff concentration, and no ebb-and-flow / slee
 model** — so the probabilistic surface is far smaller than in protocols like
 Goldfish.
 
-### Proof discipline: `sorry` vs `axiom` vs hypothesis threading
-
-These three are **not** interchangeable. The project uses the latter two and
-never the first.
-
-| Mechanism | Meaning | Soundness | Use in this project |
-|---|---|---|---|
-| `sorry` | Placeholder for an omitted proof; compiles but Lean warns and every downstream proof is tainted. | ✗ Not a proof; technical debt. | **Never.** |
-| `axiom` | A proposition *declared* true without proof — a deliberate, explicit assumption. | ✓ Sound relative to the assumption being a genuine external/idealized fact. | For idealized cryptography (signature unforgeability, collision resistance) and for the leader-randomness probability facts (temporarily). |
-| Hypothesis threading | The probabilistic / external fact is taken as an explicit *premise* of the theorem. | ✓ The theorem is fully proved: "premise ⇒ conclusion". | Default for all deterministic safety and timing reasoning. |
-
-Concretely, a deterministic theorem takes the cryptographic and randomness facts
-as hypotheses and is then proved with **no `sorry` and no local axiom**:
-
-```lean
-theorem simplex_consistency
-    (huf : SignatureUnforgeable exec)   -- conclusion of Lemma 3.1, threaded in
-    (hcr : CollisionResistant H) :
-    ∀ {log log'}, Output exec log → Output exec log' → log ⪯ log' ∨ log' ⪯ log := by
-  ...  -- fully discharged via the quorum-intersection lemmas (3.2, 3.3)
-```
-
-The probabilistic facts ("a forgery occurs only with negligible probability",
-"`k = ω(log λ)` consecutive corrupt leaders is negligible", "`E[X] ≤ 1/2`") are
-isolated into the relevant statements, declared as `axiom` for now, and proved
-later in a dedicated Phase 2 issue.
-
 ### Barriers and decisions
 
 #### 1. Idealized cryptography (signatures, hashes)
