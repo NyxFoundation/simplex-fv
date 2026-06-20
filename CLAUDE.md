@@ -18,16 +18,16 @@ are not yet formalized.
 
 ## Layout
 
-- `notes/paper-statements.md` — every numbered Theorem and Lemma from the paper
-  (Theorem 2.1, 3.1–3.4; Lemma 3.1–3.7 — **12 statements**, no numbered
+- The per-statement paper notes — every numbered Theorem and Lemma (Theorem 2.1,
+  3.1–3.4; Lemma 3.1–3.7 — **12 statements**, no numbered
   Definitions/Propositions/Corollaries), each with its proof and a notation
-  glossary. This is the specification target.
-- `notes/_segments/` — the same statements split one-per-file
-  (`theorem_<sec>.<idx>.txt`, `lemma_<sec>.<idx>.txt`).
-- `docs/formalization-strategy.md` — the authoritative design document: proof
-  discipline, the five formalization barriers and the decision for each, the
-  dependency DAG, and the planned Lean module layout. **Read this before writing
-  any Lean.**
+  glossary, plus a one-file-per-statement segment split — are the specification
+  target. They are **maintained separately, outside this repository**, and are no
+  longer version-controlled here.
+- `README.md` (the "Formalization strategy" section) — the authoritative design
+  document: proof discipline, the five formalization barriers and the decision for
+  each, the dependency DAG (rendered as a Mermaid graph), and the planned Lean
+  module layout. **Read this before writing any Lean.**
 - `2023-463.pdf` — the source paper. **Not committed** (gitignored, copyrighted);
   download from ePrint and place at this path if you want the local copy the
   notes line-reference.
@@ -84,8 +84,8 @@ labels `safety` / `liveness` / `complexity`):
 - **Theorem 2.1** is the capstone summary; it closes as the conjunction of the
   safety, liveness, and complexity conclusions.
 
-The full adjacency list lives in `docs/formalization-strategy.md`. Statements can
-be closed in topological order.
+The full dependency graph lives in the README "Formalization strategy" section
+(rendered as Mermaid). Statements can be closed in topological order.
 
 ### Phase 1 vs Phase 2
 
@@ -124,8 +124,8 @@ Planned (not yet created):
 - **Each of the 12 statements maps to a GitHub issue**, labeled by result category
   (`safety`/`liveness`/`complexity`), `type:lemma`/`type:theorem`, and
   `needs-axiom`/`phase2` where relevant (issues #1–14; #13–14 are the Phase 2
-  axiom-discharge tasks). The strategy doc is the cross-cutting reference those
-  issues link back to.
+  axiom-discharge tasks). The README "Formalization strategy" section is the
+  cross-cutting reference those issues link back to.
 - The notes are **verbatim PyMuPDF extractions** from a two-column PDF. A known
   artifact: subscripts/superscripts and primed indices line-break at column
   boundaries (e.g. `b'_{h'}` appears as `b′` then `h′`). Read split tokens as one

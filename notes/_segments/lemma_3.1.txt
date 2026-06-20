@@ -1,6 +1,0 @@
-### Statement (line 595)
-Lemma 3.1. With overwhelming probability in λ, for any honest process i, no honest process will
-see a valid signature of the form ⟨m⟩i in honest view unless process i previously signed m.
-
-### Proof (line 597)
-Proof. This is by a direct reduction to the unforgeability of the signature scheme.
