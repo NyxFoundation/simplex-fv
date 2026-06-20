@@ -57,33 +57,6 @@ There is **no VRF lottery, no Chernoff concentration, and no ebb-and-flow / slee
 model** — so the probabilistic surface is far smaller than in protocols like
 Goldfish.
 
-### Proof discipline: `sorry` vs `axiom` vs hypothesis threading
-
-These three are **not** interchangeable. The project uses the latter two and
-never the first.
-
-| Mechanism | Meaning | Soundness | Use in this project |
-|---|---|---|---|
-| `sorry` | Placeholder for an omitted proof; compiles but Lean warns and every downstream proof is tainted. | ✗ Not a proof; technical debt. | **Never.** |
-| `axiom` | A proposition *declared* true without proof — a deliberate, explicit assumption. | ✓ Sound relative to the assumption being a genuine external/idealized fact. | For idealized cryptography (signature unforgeability, collision resistance) and for the leader-randomness probability facts (temporarily). |
-| Hypothesis threading | The probabilistic / external fact is taken as an explicit *premise* of the theorem. | ✓ The theorem is fully proved: "premise ⇒ conclusion". | Default for all deterministic safety and timing reasoning. |
-
-Concretely, a deterministic theorem takes the cryptographic and randomness facts
-as hypotheses and is then proved with **no `sorry` and no local axiom**:
-
-```lean
-theorem simplex_consistency
-    (huf : SignatureUnforgeable exec)   -- conclusion of Lemma 3.1, threaded in
-    (hcr : CollisionResistant H) :
-    ∀ {log log'}, Output exec log → Output exec log' → log ⪯ log' ∨ log' ⪯ log := by
-  ...  -- fully discharged via the quorum-intersection lemmas (3.2, 3.3)
-```
-
-The probabilistic facts ("a forgery occurs only with negligible probability",
-"`k = ω(log λ)` consecutive corrupt leaders is negligible", "`E[X] ≤ 1/2`") are
-isolated into the relevant statements, declared as `axiom` for now, and proved
-later in a dedicated Phase 2 issue.
-
 ### Barriers and decisions
 
 #### 1. Idealized cryptography (signatures, hashes)
@@ -252,19 +225,3 @@ flowchart TD
 ```
 
 `Lemma 3.4` and `Lemma 3.7` are leaves (no in-graph dependencies).
-
-### Lean scaffolding (non-issue prerequisites)
-
-The following are **not** tracked by per-statement issues; they are prerequisite
-scaffolding assumed by every statement issue. They will be introduced together
-(separately from the statement issues) and live at these paths:
-
-| Path | Contents |
-|---|---|
-| `lakefile.toml`, `lean-toolchain` | Lake build config; pin a Lean toolchain and depend on Mathlib. |
-| `Simplex/Basic.lean` | Core types: `Block` `(h, parent, txs)`, genesis `b_0`, dummy `⊥_h`, blockchains with the prefix partial order `⪯`, `linearize`, the `n`/`f`/`3*f < n` parameters, notarization/finalization as `≥ ⌈2n/3⌉`-signature sets, and the timing parameters `GST`/`δ`/`∆`. |
-| `Simplex/Protocol.lean` | Abstract interface: the iteration loop, voting/timer rules, the leader oracle `L_h`, and message-delivery assumptions as a structure / typeclass of hypotheses (Barriers 4–5). |
-| `Simplex/Axioms.lean` | Declared axioms: idealized cryptography — `SignatureUnforgeable`, `CollisionResistant` (Barrier 1) — and the leader-randomness probability facts for Theorems 3.3/3.4 (Barrier 2), each with a source comment. |
-
-Reference pattern for project layout: [`Koukyosyumei/PoL`](https://github.com/Koukyosyumei/PoL)
-(Apache-2.0, Lake, `Consensus/` module layout).
