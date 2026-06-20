@@ -14,6 +14,18 @@ def quorumThreshold (n : Nat) : Nat := (2 * n + 2) / 3
 /-- Abstract message space (votes, finalize, propose). Refined in later issues. -/
 opaque Message : Type
 
+/-- Abstract block space. A block is a node of the block tree; later issues refine
+    it to `(h, parent, txs)` with genesis `b_0` and dummy `⊥_h`. -/
+opaque Block : Type
+
+/-- Output transaction sequence (`linearize` of a finalized chain). -/
+opaque Log : Type
+
+/-- Prefix order `⪯` on logs. Abstract for the safety MVP: Theorem 3.1 only ever
+    *produces* a prefix fact (from collision resistance) and concludes the
+    consistency disjunction, so no computation rule is needed yet. -/
+opaque LogPrefix : Log → Log → Prop
+
 /-- An execution transcript, with the predicates Lemma 3.1 ranges over.
     All fields are abstract for this MVP (Barrier 4: abstract interface). -/
 structure Execution (n : Nat) where
