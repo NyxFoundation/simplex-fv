@@ -5,3 +5,6 @@ import Simplex.Safety
 import Simplex.Timing
 import Simplex.Liveness
 import Simplex.HonestLeader
+import Simplex.Complexity
+import Simplex.Confirmation
+import Simplex.Capstone
