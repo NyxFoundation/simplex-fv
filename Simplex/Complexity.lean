@@ -8,8 +8,8 @@ set_option autoImplicit false
 
 namespace Simplex
 
-/-- **Abstract per-iteration multicast model for Lemma 3.7** (Barrier 4: the protocol
-    mechanics are an interface, not implemented operationally). `multicast p h` is the
+/-- **Abstract per-iteration multicast model for Lemma 3.7** (the protocol mechanics
+    are an interface, not implemented operationally). `multicast p h` is the
     finite set of messages an honest process `p` multicasts during iteration `h`, and
     `category` classifies each message into one of the four per-iteration kinds:
 
@@ -30,7 +30,7 @@ namespace MessageComplexity
 
 variable {n : Nat}
 
-/-- Protocol multicast law (Barrier 4, abstract): in each iteration an honest process
+/-- Protocol multicast law (abstract): in each iteration an honest process
     multicasts **at most one** message in each of the four categories — at most one
     propose, at most one non-`⊥` vote, at most one of the dummy-vote/finalize pair,
     and at most one notarized-chain relay (the paper's per-iteration enumeration). -/

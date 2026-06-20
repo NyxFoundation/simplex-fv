@@ -5,8 +5,8 @@ set_option autoImplicit false
 
 namespace Simplex
 
-/-- **Abstract chain/message interface for the safety theorems** (Barrier 4: the
-    protocol mechanics are modeled as an interface, not implemented operationally).
+/-- **Abstract chain/message interface for the safety theorems** (the protocol
+    mechanics are modeled as an interface, not implemented operationally).
     Bundles the block/log structure and the message encodings that the
     quorum-counting lemmas (3.2, 3.3) and the consistency theorem (3.1) range over.
     A concrete operational model can later *construct* a `ChainView` without

@@ -5,7 +5,7 @@ set_option autoImplicit false
 
 namespace Simplex
 
-/-- **Abstract partial-synchrony timing model** for the liveness line (Barrier 5).
+/-- **Abstract partial-synchrony timing model** for the liveness line.
     Time is `ℝ`; `GST`, `δ`, `Δ` are the network parameters with `δ < Δ` (the
     standing partial-synchrony assumption, in force after GST). `EnteredBy p h t`
     and `SawNotar p k t` are the protocol's timing predicates, modeled abstractly —
@@ -25,7 +25,7 @@ namespace TimingView
 
 variable {n : Nat}
 
-/-- Deterministic protocol/delivery laws for the timing model (Barrier 5), threaded
+/-- Deterministic protocol/delivery laws for the timing model, threaded
     as a hypothesis bundle (provable in a concrete operational model):
     - `entered_saw`: an honest process enters iteration `h+1` only after seeing a
       notarized height-`h` chain (the paper's "must have seen a notarized

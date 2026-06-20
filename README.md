@@ -46,9 +46,8 @@ specification target. The Lean 4 approach is recorded in the
 
 This section records *how* the Simplex consensus protocol (IACR ePrint 2023/463)
 is being formalized in Lean 4, the technical barriers we hit, and the explicit
-policy decision for each. The 12 numbered statements of the paper (Theorem 2.1,
-3.1–3.4; Lemma 3.1–3.7) are each tracked by a GitHub issue; this section is the
-cross-cutting reference those issues link back to.
+policy decision for each, covering the 12 numbered statements of the paper
+(Theorem 2.1, 3.1–3.4; Lemma 3.1–3.7).
 
 Simplex is deliberately simple: a partially-synchronous BFT protocol whose entire
 safety argument is one quorum-intersection lemma applied twice, and whose liveness
@@ -71,8 +70,8 @@ Game-based cryptographic reductions are research-level work and out of scope.
 **Decision.** Axiomatize idealized interfaces: `SignatureUnforgeable` (no honest
 process sees a valid `⟨m⟩_i` unless `i` signed `m`) and `CollisionResistant`
 (equal hashes ⇒ equal pre-images, on the reachable block space). Declare each as
-an `axiom` with a source comment in a central module (label `needs-axiom`). The
-deterministic statements take these as hypotheses and are fully proved.
+an `axiom` with a source comment in a central module. The deterministic
+statements take these as hypotheses and are fully proved.
 
 #### 2. Random leader election and probabilistic liveness
 
@@ -92,10 +91,8 @@ Goldfish.
 exposed property is "honest with independent probability `≥ (n−f)/n`". Thread the
 two probability facts above as hypotheses (or small local `axiom`s) into
 Theorems 3.3 and 3.4; the deterministic "honest leader ⇒ progress" core
-(Lemmas 3.4–3.6) is fully proved. A statement issue closes at **Phase 1** once
-the axiom/premise is in place; the measure-theoretic proof of the coin bounds is
-a separate **Phase 2** follow-up issue (label `phase2`) and never blocks
-dependents.
+(Lemmas 3.4–3.6) is fully proved. The measure-theoretic proof of the coin bounds
+is a separate follow-up that never blocks dependents.
 
 #### 3. Quorum intersection (the safety core)
 
@@ -126,7 +123,7 @@ The notes omit the player-step pseudocode, but the statements need the iteration
 loop, the `3∆` timer `T_h`, notarization/finalization (`≥ 2n/3` votes), and the
 dummy block `⊥_h`.
 
-**Decision (MVP).** Do not implement the steps operationally. Provide the voting,
+**Decision.** Do not implement the steps operationally. Provide the voting,
 timer, notarization, and finalization behaviour as an **abstract interface (a
 structure / typeclass of hypotheses)** and derive the theorems from it. An
 executable state-machine model can replace the interface later without changing
@@ -145,7 +142,7 @@ then ordinary inequality reasoning, fully proved.
 
 ### Result categories and dependency graph
 
-Three categories, matching the GitHub labels `safety` / `liveness` / `complexity`.
+Three categories — `safety`, `liveness`, and `complexity`.
 The safety line is self-contained given the crypto axioms; the liveness line
 depends on the timing model and leader randomness; complexity is a single lemma.
 

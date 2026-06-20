@@ -56,7 +56,7 @@ theorem theorem_3_2 (R : HonestLeaderRound n) (C : Process n → ℝ → Prop)
     Lemma 3.5 contributes the trailing `3δ` (`confirm_by`); the headline worst-case
     time `4δ + ω(log λ)·(3∆+δ)` is this bound with `k = ω(log λ)`, the choice of `k`
     for which the probability of `k` consecutive corrupt leaders is negligible
-    (`consecutiveCorruptProb_bound`, the Phase-1 leader-rotation axiom). Deterministic
+    (`consecutiveCorruptProb_bound`, the leader-rotation axiom). Deterministic
     core; no `sorry`. -/
 theorem theorem_3_3_time (R : HonestLeaderRound n) (C : Process n → ℝ → Prop)
     (mono : ∀ q s s', s ≤ s' → C q s → C q s')
@@ -74,8 +74,7 @@ theorem theorem_3_3_time (R : HonestLeaderRound n) (C : Process n → ℝ → Pr
 /-- **The probability part of Theorem 3.3.** The probability that all of the next `k`
     leaders are corrupt is bounded by `(m − k + 1)/2^k` (negligible for
     `k = ω(log λ)`), so the honest-leader hypothesis of `theorem_3_3_time` holds with
-    overwhelming probability. Phase 1: this is the `consecutiveCorruptProb_bound`
-    axiom; Phase 2 (#13) discharges it. -/
+    overwhelming probability. This is the `consecutiveCorruptProb_bound` axiom. -/
 theorem theorem_3_3_negligible (m k : Nat) :
     consecutiveCorruptProb m k ≤ ((m : ℝ) - (k : ℝ) + 1) / 2 ^ k :=
   consecutiveCorruptProb_bound m k
@@ -100,10 +99,9 @@ theorem theorem_3_4_time (R : HonestLeaderRound n) (C : Process n → ℝ → Pr
 
 /-- **Theorem 3.4 (Expected View-Based Liveness), expectation.** Taking expectations
     over the leader offset `X` in `theorem_3_4_time` and using `E[X] ≤ 1/2`
-    (`expectedLeaderOffset_le`, the Phase-1 leader-offset axiom), the expected
+    (`expectedLeaderOffset_le`, the leader-offset axiom), the expected
     confirmation time after `t` is at most `3.5δ + 1.5∆`:
-    `E[3δ + X·(3∆+δ)] = 3δ + E[X]·(3∆+δ) ≤ 3δ + ½·(3∆+δ) = 3.5δ + 1.5∆`.
-    Phase 2 (#14) discharges the `E[X] ≤ 1/2` axiom. -/
+    `E[3δ + X·(3∆+δ)] = 3δ + E[X]·(3∆+δ) ≤ 3δ + ½·(3∆+δ) = 3.5δ + 1.5∆`. -/
 theorem theorem_3_4_expected (δ Δ : ℝ) (hδ : 0 ≤ δ) (hΔ : 0 ≤ Δ) :
     3 * δ + expectedLeaderOffset * (3 * Δ + δ) ≤ 3.5 * δ + 1.5 * Δ := by
   have hkey : expectedLeaderOffset * (3 * Δ + δ) ≤ (1 / 2) * (3 * Δ + δ) :=
