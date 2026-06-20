@@ -1,5 +1,5 @@
-import Simplex.Safety
-import Simplex.Liveness
+import Simplex.Safety.Lemma3_3
+import Simplex.Liveness.Lemma3_4
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.Ring
 
@@ -131,5 +131,22 @@ theorem lemma_3_5 :
    R.hproposed R.hcv_notarized R.block_not_dummy⟩
 
 end HonestLeaderRound
+
+/-- **Confirmation from a finalizing honest-leader round.** If the honest leader of
+    the decisive iteration `h` entered it by time `B`, then every honest process has
+    confirmed `txs` (output a finalized block containing it) by `B + 3δ`.
+
+    `C q s` reads "process `q` has confirmed `txs` by time `s`"; `mono` is its
+    monotonicity in time, and `bridge` says that the finalized height-`h` block Lemma
+    3.5 delivers (`R.all_finalized`) is a confirmation of `txs` — i.e. the honest
+    leader's proposed block contains `txs`. The `3δ` is exactly Lemma 3.5's
+    finalize-by-`t+3δ` bound applied at the leader's entry time `R.t`. -/
+theorem confirm_by {n : Nat} (R : HonestLeaderRound n) (C : Process n → ℝ → Prop)
+    (mono : ∀ q s s', s ≤ s' → C q s → C q s')
+    (bridge : ∀ q, R.e.Honest q →
+        R.SawFinalized q R.h (R.t + 3 * R.tv.δ) → C q (R.t + 3 * R.tv.δ))
+    (B : ℝ) (hB : R.t ≤ B) (q : Process n) (hq : R.e.Honest q) :
+    C q (B + 3 * R.tv.δ) :=
+  mono q _ _ (by linarith) (bridge q hq (R.all_finalized q hq))
 
 end Simplex
