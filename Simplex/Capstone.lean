@@ -1,5 +1,5 @@
 import Simplex.Safety
-import Simplex.Confirmation
+import Simplex.Liveness
 import Simplex.Complexity
 
 set_option autoImplicit false

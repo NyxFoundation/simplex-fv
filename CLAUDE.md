@@ -96,28 +96,37 @@ that never block dependents.
 
 ### Lean modules
 
-Existing (root `Simplex.lean` imports all of these):
+The layout mirrors `Koukyosyumei/PoL` and `goldfish-fv`: foundational modules at
+the root of `Simplex/`, and each result category as a directory of one-file-per-
+statement modules (`Lemma3_2.lean`, `Theorem3_1.lean`, …) re-exported by a
+same-named barrel module. Root `Simplex.lean` imports the foundation, the three
+category barrels, and `Capstone`.
 
-- `Simplex/Basic.lean` — currently a **minimal** abstract model seeded for
-  Lemma 3.1: `Process`, opaque `Message`, an abstract `Execution` structure,
-  opaque `ValidExecution`, and the `SignatureUnforgeable` predicate. To be
-  extended (later issues) with the full core types: `Block (h, parent, txs)`,
-  genesis `b_0`, dummy `⊥_h`, prefix order `⪯`, `linearize`, the `n`/`f`
-  parameters, notarization/finalization as `≥ ⌈2n/3⌉`-signature sets, timing params.
-- `Simplex/Axioms.lean` — declared crypto axioms. Has `signature_unforgeable`
-  (guarded by `ValidExecution`); to gain `CollisionResistant` and the
-  leader-randomness facts. **An unguarded axiom over the abstract `Execution`
-  would prove `False`** (its fields are unconstrained) — guard each crypto axiom
-  by `ValidExecution`.
-- `Simplex/Safety.lean` — safety (consistency) statements; currently `lemma_3_1`.
+Foundation:
 
-Planned (not yet created):
+- `Simplex/Basic.lean` — core types: `Process`, opaque `Message`/`Block`/`Log`,
+  the `⌈2n/3⌉` `quorumThreshold`, the abstract `Execution` structure, opaque
+  `ValidExecution`, and the `SignatureUnforgeable` predicate.
+- `Simplex/Protocol.lean` — the abstract `ChainView` interface (block/log
+  structure, `Notarized`/`Finalized`, the honest signing rules, `CollisionResistant`,
+  and the structural `Laws` bundle). Protocol mechanics are **modeled abstractly,
+  not implemented operationally**.
+- `Simplex/Axioms.lean` — declared crypto axioms (`signature_unforgeable`,
+  `collision_resistant`) and the leader-randomness axioms. **An unguarded axiom
+  over the abstract `Execution` would prove `False`** (its fields are
+  unconstrained) — each crypto axiom is guarded by `ValidExecution`.
 
-- `Simplex/Protocol.lean` — abstract interface (structure/typeclass of hypotheses)
-  for the iteration loop, voting/timer rules, the leader oracle `L_h`, and
-  message-delivery assumptions. Protocol steps are **modeled abstractly, not
-  implemented operationally** (an executable state machine can replace the
-  interface later without changing theorem statements).
+Result categories (`Simplex/<Category>.lean` barrel + `Simplex/<Category>/`):
+
+- `Simplex/Safety/` — `QuorumIntersection`, `Lemma3_1`–`Lemma3_3`, `Theorem3_1`.
+- `Simplex/Liveness/` — `Basic` (the `TimingView` model), `Lemma3_4`–`Lemma3_6`
+  (with the `confirm_by` bridge in `Lemma3_5`), `Theorem3_2`–`Theorem3_4`.
+- `Simplex/Complexity/` — `Lemma3_7`.
+
+Capstone:
+
+- `Simplex/Capstone.lean` — `theorem_2_1`, the conjunction of the safety,
+  liveness, and complexity conclusions.
 
 ## Conventions
 
